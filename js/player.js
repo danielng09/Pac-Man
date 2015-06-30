@@ -18,7 +18,7 @@ var Player = function(options) {
 Player.prototype.create = function () {
   this.sprite = this.game.add.sprite((18 * 16) + 8, (17 * 16) + 8, 'pacman', 0);
   this.sprite.anchor.set(0.5);
-  this.sprite.animations.add('munch', [0, 1, 2, 1], 10, true);
+  this.sprite.animations.add('munch', [0, 1, 2, 1], 15, true);
 
   this.game.physics.arcade.enable(this.sprite);
   this.sprite.body.setSize(16, 16, 0, 0);

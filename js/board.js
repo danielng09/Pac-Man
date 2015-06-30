@@ -56,13 +56,13 @@ Board.prototype = {
   },
 
   checkKeys: function () {
-    if (this.cursors.left.isDown && this.current !== Phaser.LEFT) {
+    if (this.cursors.left.isDown && player.current !== Phaser.LEFT) {
         player.checkDirection(Phaser.LEFT);
-    } else if (this.cursors.right.isDown && this.current !== Phaser.RIGHT) {
+    } else if (this.cursors.right.isDown && player.current !== Phaser.RIGHT) {
         player.checkDirection(Phaser.RIGHT);
-    } else if (this.cursors.up.isDown && this.current !== Phaser.UP) {
+    } else if (this.cursors.up.isDown && player.current !== Phaser.UP) {
         player.checkDirection(Phaser.UP);
-    } else if (this.cursors.down.isDown && this.current !== Phaser.DOWN) {
+    } else if (this.cursors.down.isDown && player.current !== Phaser.DOWN) {
         player.checkDirection(Phaser.DOWN);
     } else {
         //  This forces them to hold the key down to turn the corner

@@ -15,14 +15,18 @@ var Ghost = function(options) {
 };
 
 Ghost.prototype.create = function () {
-  this.sprite = this.game.add.sprite((9 * 16) + 8, (14 * 16) + 8, 'ghost', 0);
+  this.sprite = this.game.add.sprite((13 * 16) + 8, (14 * 16) + 8, 'ghost', 0);
   this.sprite.anchor.set(0.5);
   this.game.physics.arcade.enable(this.sprite);
 
-  this.sprite.animations.add('move', [0, 1], 15, true);
+  this.sprite.animations.add('moveLeft', [0,1], 15, true);
+  this.sprite.animations.add('moveRight', [6,7], 15, true);
+  this.sprite.animations.add('moveUp', [2,3], 15, true);
+  this.sprite.animations.add('moveDown', [4,5], 15, true);
+
   this.sprite.body.setSize(16, 16, 0, 0);
 
-  this.sprite.play('move');
+  this.sprite.play('moveUp');
 
   this.move(Phaser.UP);
 };
@@ -83,8 +87,6 @@ Ghost.prototype.update = function () {
   this.directions[3] = this.game.map.getTileAbove(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[4] = this.game.map.getTileBelow(this.game.layer.index, this.marker.x, this.marker.y);
 
-  this.game.checkKeys();
-
   if (this.turning !== Phaser.NONE) {
     this.turn();
   }
@@ -104,12 +106,16 @@ Ghost.prototype.randomMove = function () {
   var randDir;
   if (xDiff === 1) {
     randDir = Phaser.LEFT;
+    this.sprite.play('moveLeft');
   } else if (xDiff === -1) {
     randDir = Phaser.RIGHT;
+    this.sprite.play('moveRight');
   } else if (yDiff === 1) {
     randDir = Phaser.UP;
+    this.sprite.play('moveUp');
   } else if (yDiff === -1) {
     randDir = Phaser.DOWN;
+    this.sprite.play('moveDown');
   }
 
   this.move(randDir);

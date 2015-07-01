@@ -1,4 +1,4 @@
-var Player = function(options) {
+var Ghost = function(options) {
   this.game = options.game;
 
   this.speed = 150;
@@ -14,21 +14,20 @@ var Player = function(options) {
   this.turning = Phaser.NONE;
 };
 
-Player.prototype.create = function () {
-  this.sprite = this.game.add.sprite((18 * 16) + 8, (17 * 16) + 8, 'pacman', 0);
+Ghost.prototype.create = function () {
+  this.sprite = this.game.add.sprite((9 * 16) + 8, (14 * 16) + 8, 'ghost', 0);
   this.sprite.anchor.set(0.5);
-  this.sprite.animations.add('munch', [0, 1, 2, 1], 15, true);
-
   this.game.physics.arcade.enable(this.sprite);
+
+  this.sprite.animations.add('move', [0, 1], 15, true);
   this.sprite.body.setSize(16, 16, 0, 0);
 
-  this.sprite.play('munch');
+  this.sprite.play('move');
 
-
-  this.move(Phaser.LEFT);
+  this.move(Phaser.UP);
 };
 
-Player.prototype.move = function (direction) {
+Ghost.prototype.move = function (direction) {
   var speed = this.speed;
   if (direction === Phaser.LEFT || direction === Phaser.UP) {
       speed = -speed;
@@ -39,40 +38,22 @@ Player.prototype.move = function (direction) {
     this.sprite.body.velocity.y = speed;
   }
 
-  //  Reset the scale and angle (Pacman is facing to the right in the sprite sheet)
-  this.sprite.scale.x = 1;
-  this.sprite.angle = 0;
-
-  if (direction === Phaser.LEFT) {
-    this.sprite.scale.x = -1;
-  } else if (direction === Phaser.UP) {
-    this.sprite.angle = 270;
-  } else if (direction === Phaser.DOWN) {
-    this.sprite.angle = 90;
-  }
-
   this.current = direction;
 };
 
-Player.prototype.checkDirection = function (turnDir) {
+Ghost.prototype.checkDirection = function (turnDir) {
   if (this.turning === turnDir || this.directions[turnDir] === null || this.directions[turnDir].index !== this.game.safetile) {
     //  Invalid direction if they're already set to turn that way
     //  Or there is no tile there, or the tile isn't index 1 (a floor tile)
     return;
   }
 
-  //  Check if they want to turn around and can
-  if (this.current === this.opposites[turnDir]) {
-    this.move(turnDir);
-  } else {
-    this.turning = turnDir;
-
-    this.turnPoint.x = (this.marker.x * this.game.gridsize) + (this.game.gridsize / 2);
-    this.turnPoint.y = (this.marker.y * this.game.gridsize) + (this.game.gridsize / 2);
-  }
+  this.turning = turnDir;
+  this.turnPoint.x = (this.marker.x * this.game.gridsize) + (this.game.gridsize / 2);
+  this.turnPoint.y = (this.marker.y * this.game.gridsize) + (this.game.gridsize / 2);
 };
 
-Player.prototype.turn = function () {
+Ghost.prototype.turn = function () {
   var cx = Math.floor(this.sprite.x);
   var cy = Math.floor(this.sprite.y);
 
@@ -91,17 +72,8 @@ Player.prototype.turn = function () {
   return true;
 };
 
-Player.prototype.eatDot = function (pacman, dot) {
-  dot.kill();
-  if (this.dots.total === 0) {
-    this.dots.callAll('revive');
-  }
-};
-
-Player.prototype.update = function () {
-  this.game.physics.arcade.collide(this.sprite, this.game.layer);
-  this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot, null, this.game);
-
+Ghost.prototype.update = function () {
+  this.game.physics.arcade.collide(this.sprite, this.game.layer, this.randomMove.bind(this));
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
 
@@ -116,4 +88,29 @@ Player.prototype.update = function () {
   if (this.turning !== Phaser.NONE) {
     this.turn();
   }
+};
+
+Ghost.prototype.randomMove = function () {
+  var valid_moves = [];
+
+  for (var t = 1; t < 5; t++) {
+    if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && t !== this.current) {
+      valid_moves.push(this.directions[t]);
+    }
+  }
+  var randTile = valid_moves[Math.round(Math.random() * (valid_moves.length -1))];
+  var xDiff = this.marker.x - randTile.x;
+  var yDiff = this.marker.y - randTile.y;
+  var randDir;
+  if (xDiff === 1) {
+    randDir = Phaser.LEFT;
+  } else if (xDiff === -1) {
+    randDir = Phaser.RIGHT;
+  } else if (yDiff === 1) {
+    randDir = Phaser.UP;
+  } else if (yDiff === -1) {
+    randDir = Phaser.DOWN;
+  }
+
+  this.move(randDir);
 };

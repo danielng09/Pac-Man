@@ -1,9 +1,3 @@
-if (window.Pacman === undefined) {
-  window.Pacman = {};
-}
-
-var game = Pacman.game = new Phaser.Game(448, 496, Phaser.AUTO);
-
 var Board = function (game) {
   this.map = null;
   this.layer = null;
@@ -23,12 +17,13 @@ Board.prototype = {
   },
 
   preload: function () {
-    this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue005/';
-    this.load.crossOrigin = 'anonymous';
+    // this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue005/';
+    // this.load.crossOrigin = 'anonymous';
 
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
     this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
+    this.load.spritesheet('ghost', 'assets/red-ghost.png', 34, 34);
     this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
   },
 
@@ -53,27 +48,32 @@ Board.prototype = {
     });
 
     player.create();
+
+    ghost = new Ghost({
+      game: this,
+    });
+
+    ghost.create();
   },
 
   checkKeys: function () {
     if (this.cursors.left.isDown && player.current !== Phaser.LEFT) {
-        player.checkDirection(Phaser.LEFT);
+      player.checkDirection(Phaser.LEFT);
     } else if (this.cursors.right.isDown && player.current !== Phaser.RIGHT) {
-        player.checkDirection(Phaser.RIGHT);
+      player.checkDirection(Phaser.RIGHT);
     } else if (this.cursors.up.isDown && player.current !== Phaser.UP) {
-        player.checkDirection(Phaser.UP);
+      player.checkDirection(Phaser.UP);
     } else if (this.cursors.down.isDown && player.current !== Phaser.DOWN) {
-        player.checkDirection(Phaser.DOWN);
+      player.checkDirection(Phaser.DOWN);
     } else {
-        //  This forces them to hold the key down to turn the corner
-        player.turning = Phaser.NONE;
+      //  This forces them to hold the key down to turn the corner
+      player.turning = Phaser.NONE;
     }
   },
 
   update: function () {
     player.update();
+    ghost.update();
   }
 
 };
-
-game.state.add('Game', Board, true);

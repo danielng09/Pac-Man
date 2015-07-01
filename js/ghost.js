@@ -1,5 +1,6 @@
 var Ghost = function(options) {
   this.game = options.game;
+  this.spriteName = options.spriteName;
 
   this.speed = 150;
   this.threshold = 5;
@@ -15,7 +16,7 @@ var Ghost = function(options) {
 };
 
 Ghost.prototype.create = function () {
-  this.sprite = this.game.add.sprite((13 * 16) + 8, (14 * 16) + 8, 'ghost', 0);
+  this.sprite = this.game.add.sprite((13 * 16) + 8, (14 * 16) + 8, this.spriteName, 0);
   this.sprite.anchor.set(0.5);
   this.game.physics.arcade.enable(this.sprite);
 

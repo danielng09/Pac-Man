@@ -23,7 +23,10 @@ Board.prototype = {
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
     this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
-    this.load.spritesheet('ghost', 'assets/red-ghost.png', 34, 34);
+    this.load.spritesheet('blinky', 'assets/blinky.png', 34, 34);
+    this.load.spritesheet('pinky', 'assets/pinky.png', 34, 34);
+    this.load.spritesheet('inky', 'assets/inky.png', 34, 34);
+    this.load.spritesheet('clyde', 'assets/clyde.png', 34, 34);
     this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
   },
 
@@ -35,25 +38,26 @@ Board.prototype = {
     this.dots = this.add.physicsGroup();
     this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
 
-    //  The dots will need to be offset by 6px to put them back in the middle of the grid
     this.dots.setAll('x', 6, false, false, 1);
     this.dots.setAll('y', 6, false, false, 1);
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    //  Pacman should collide with everything except the safe tile
-    //  Safe tiles are valid spaces pacman can move through
-    this.map.setCollisionByExclusion([this.safetile], true, this.layer);
-    player = new Player({
-      game: this,
-    });
 
+    this.map.setCollisionByExclusion([this.safetile], true, this.layer);
+    player = new Player({ game: this });
     player.create();
 
-    ghost = new Ghost({
-      game: this,
-    });
+    blinky = new Ghost({ game: this, spriteName: "blinky" });
+    blinky.create();
 
-    ghost.create();
+    pinky = new Ghost({ game: this, spriteName: "pinky" });
+    pinky.create();
+
+    inky = new Ghost({ game: this, spriteName: "inky" });
+    inky.create();
+
+    clyde = new Ghost({ game: this, spriteName: "clyde" });
+    clyde.create();
   },
 
   checkKeys: function () {
@@ -66,14 +70,17 @@ Board.prototype = {
     } else if (this.cursors.down.isDown && player.current !== Phaser.DOWN) {
       player.checkDirection(Phaser.DOWN);
     } else {
-      //  This forces them to hold the key down to turn the corner
       player.turning = Phaser.NONE;
     }
   },
 
   update: function () {
     player.update();
-    ghost.update();
+    blinky.update();
+    pinky.update();
+    inky.update();
+    clyde.update();
+
   }
 
 };

@@ -3,7 +3,7 @@ var Ghost = function(options) {
   this.spriteName = options.spriteName;
 
   this.speed = 150;
-  this.threshold = 5;
+  this.threshold = 3;
 
   this.marker = new Phaser.Point();
   this.turnPoint = new Phaser.Point();
@@ -13,6 +13,9 @@ var Ghost = function(options) {
 
   this.current = Phaser.NONE;
   this.turning = Phaser.NONE;
+
+  this.startRandomMoves = false;
+  this.canMoveAgain = true;
 };
 
 Ghost.prototype.create = function () {
@@ -78,7 +81,15 @@ Ghost.prototype.turn = function () {
 };
 
 Ghost.prototype.update = function () {
-  this.game.physics.arcade.collide(this.sprite, this.game.layer, this.randomMove.bind(this));
+  // var null_dirs = this.directions.slice(1).every(function(element) {
+  //   return element === null;
+  // });
+  if (this.startRandomMoves && this.canMoveAgain) {
+    this.randomMove();
+  }
+
+  this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
+
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
 
@@ -87,13 +98,17 @@ Ghost.prototype.update = function () {
   this.directions[2] = this.game.map.getTileRight(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[3] = this.game.map.getTileAbove(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[4] = this.game.map.getTileBelow(this.game.layer.index, this.marker.x, this.marker.y);
-
   if (this.turning !== Phaser.NONE) {
     this.turn();
   }
 };
 
+Ghost.prototype.startRandom = function () {
+  this.startRandomMoves = true;
+};
+
 Ghost.prototype.randomMove = function () {
+  this.canMoveAgain = false;
   var valid_moves = [];
 
   for (var t = 1; t < 5; t++) {
@@ -101,6 +116,7 @@ Ghost.prototype.randomMove = function () {
       valid_moves.push(this.directions[t]);
     }
   }
+
   var randTile = valid_moves[Math.round(Math.random() * (valid_moves.length -1))];
   var xDiff = this.marker.x - randTile.x;
   var yDiff = this.marker.y - randTile.y;
@@ -119,5 +135,8 @@ Ghost.prototype.randomMove = function () {
     this.sprite.play('moveDown');
   }
 
+  setTimeout(function() {
+    this.canMoveAgain = true;
+  }.bind(this), 100);
   this.move(randDir);
 };

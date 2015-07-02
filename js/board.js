@@ -47,17 +47,23 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
+    blinky = pinky = inky = clyde = false;
+
     blinky = new Ghost({ game: this, spriteName: "blinky" });
     blinky.create();
 
-    pinky = new Ghost({ game: this, spriteName: "pinky" });
-    pinky.create();
-
-    inky = new Ghost({ game: this, spriteName: "inky" });
-    inky.create();
-
-    clyde = new Ghost({ game: this, spriteName: "clyde" });
-    clyde.create();
+    setTimeout(function () {
+      pinky = new Ghost({ game: this, spriteName: "pinky" });
+      pinky.create();
+    }.bind(this), 1000);
+    setTimeout(function () {
+      inky = new Ghost({ game: this, spriteName: "inky" });
+      inky.create();
+    }.bind(this), 2000);
+    setTimeout(function () {
+      clyde = new Ghost({ game: this, spriteName: "clyde" });
+      clyde.create();
+    }.bind(this), 3000);
   },
 
   checkKeys: function () {
@@ -76,11 +82,10 @@ Board.prototype = {
 
   update: function () {
     player.update();
-    blinky.update();
-    pinky.update();
-    inky.update();
-    clyde.update();
-
+    if (blinky) { blinky.update(); }
+    if (pinky) { pinky.update(); }
+    if (inky) { inky.update(); }
+    if (clyde) { clyde.update(); }
   }
 
 };

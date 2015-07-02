@@ -7,7 +7,7 @@ var Ghost = function(options) {
 
   this.marker = new Phaser.Point();
   this.turnPoint = new Phaser.Point();
-
+                        //   LEFT  RIGHT  TOP  DOWN
   this.directions = [ null, null, null, null, null ];
   this.opposites = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
 
@@ -97,7 +97,7 @@ Ghost.prototype.randomMove = function () {
   var valid_moves = [];
 
   for (var t = 1; t < 5; t++) {
-    if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && t !== this.current) {
+    if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && this.opposites[t] !== this.current) {
       valid_moves.push(this.directions[t]);
     }
   }

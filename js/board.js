@@ -7,7 +7,7 @@ var Board = function (game) {
 
 Board.prototype = {
   init: function () {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
 
@@ -17,9 +17,6 @@ Board.prototype = {
   },
 
   preload: function () {
-    // this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue005/';
-    // this.load.crossOrigin = 'anonymous';
-
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
     this.load.spritesheet('pacman', 'assets/pacman-3.png', 32, 32);

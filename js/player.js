@@ -15,15 +15,14 @@ var Player = function(options) {
 };
 
 Player.prototype.create = function () {
-  this.sprite = this.game.add.sprite((18 * 16) + 8, (17 * 16) + 8, 'pacman', 0);
+  this.sprite = this.game.add.sprite((18 * 16) + 8, (17 * 16) + 8, 'pacman', 1);
   this.sprite.anchor.set(0.5);
-  this.sprite.animations.add('munch', [0, 1, 2, 1], 13, true);
+  this.sprite.animations.add('munch', [1, 2, 1, 0], 13, true);
 
   this.game.physics.arcade.enable(this.sprite);
   this.sprite.body.setSize(16, 16);
 
   this.sprite.play('munch');
-
 
   this.move(Phaser.LEFT);
 };
@@ -51,6 +50,7 @@ Player.prototype.move = function (direction) {
     this.sprite.angle = 90;
   }
 
+  this.sprite.play('munch');
   this.current = direction;
 };
 
@@ -99,8 +99,10 @@ Player.prototype.eatDot = function (pacman, dot) {
 };
 
 Player.prototype.update = function () {
-  this.game.physics.arcade.collide(this.sprite, this.game.layer);
+  this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
   this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot, null, this.game);
+
+  // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.game.gameOver.bind(this.game));
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
@@ -116,4 +118,8 @@ Player.prototype.update = function () {
   if (this.turning !== Phaser.NONE) {
     this.turn();
   }
+};
+
+Player.prototype.stop = function () {
+  this.sprite.animations.stop();
 };

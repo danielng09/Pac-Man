@@ -44,22 +44,27 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
+    this.ghosts = game.add.group();
     blinky = pinky = inky = clyde = false;
 
     blinky = new Ghost({ game: this, spriteName: "blinky" });
     blinky.create();
+    // this.ghosts.add(blinky);
 
     setTimeout(function () {
       pinky = new Ghost({ game: this, spriteName: "pinky" });
       pinky.create();
+      // this.ghosts.add(pinky);
     }.bind(this), 1000);
     setTimeout(function () {
       inky = new Ghost({ game: this, spriteName: "inky" });
       inky.create();
+      // this.ghosts.add(inky);
     }.bind(this), 2000);
     setTimeout(function () {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
+      // this.ghosts.add(clyde);
     }.bind(this), 3000);
   },
 
@@ -83,6 +88,6 @@ Board.prototype = {
     if (pinky) { pinky.update(); }
     if (inky) { inky.update(); }
     if (clyde) { clyde.update(); }
-  }
+  },
 
 };

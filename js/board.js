@@ -22,7 +22,7 @@ Board.prototype = {
 
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
-    this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
+    this.load.spritesheet('pacman', 'assets/pacman-3.png', 32, 32);
     this.load.spritesheet('blinky', 'assets/blinky.png', 34, 34);
     this.load.spritesheet('pinky', 'assets/pinky.png', 34, 34);
     this.load.spritesheet('inky', 'assets/inky.png', 34, 34);

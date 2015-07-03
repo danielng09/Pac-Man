@@ -84,9 +84,16 @@ Ghost.prototype.update = function () {
   // var null_dirs = this.directions.slice(1).every(function(element) {
   //   return element === null;
   // });
+  if (this.sprite.x < 5) {
+    this.sprite.x = 443;
+  } else if (this.sprite.x > 443) { //448
+    this.sprite.x = 5;
+  }
+
   if (this.startRandomMoves && this.canMoveAgain) {
     this.randomMove();
   }
+
 
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
 

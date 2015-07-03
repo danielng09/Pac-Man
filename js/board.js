@@ -2,6 +2,7 @@ var Board = function (game) {
   this.map = null;
   this.layer = null;
   this.safetile = 14;
+  this.teleportTile = 36;
   this.gridsize = 16;
 };
 
@@ -40,7 +41,7 @@ Board.prototype = {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.map.setCollisionByExclusion([this.safetile], true, this.layer);
+    this.map.setCollisionByExclusion([this.safetile, this.teleportTile], true, this.layer);
     player = new Player({ game: this });
     player.create();
 

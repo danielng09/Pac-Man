@@ -38,7 +38,6 @@ Player.prototype.move = function (direction) {
     this.sprite.body.velocity.y = speed;
   }
 
-  //  Reset the scale and angle (Pacman is facing to the right in the sprite sheet)
   this.sprite.scale.x = 1;
   this.sprite.angle = 0;
 
@@ -106,8 +105,13 @@ Player.prototype.update = function () {
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
+  if (this.sprite.x < 0) {
+    this.sprite.x = this.sprite.x + 448;
+  } else if (this.sprite.x > 448) {
+    this.sprite.x = this.sprite.x % 448;
+  }
+  // this.sprite.x = this.sprite.x % 448;
 
-  //  Update our grid sensors
   this.directions[1] = this.game.map.getTileLeft(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[2] = this.game.map.getTileRight(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[3] = this.game.map.getTileAbove(this.game.layer.index, this.marker.x, this.marker.y);

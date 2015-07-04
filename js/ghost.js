@@ -120,7 +120,9 @@ Ghost.prototype.randomMove = function () {
 
   for (var t = 1; t < 5; t++) {
     if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && this.opposites[t] !== this.current) {
-      valid_moves.push(this.directions[t]);
+      if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
+        valid_moves.push(this.directions[t]);
+      }
     }
   }
 

@@ -12,19 +12,22 @@ var Player = function(options) {
 
   this.current = Phaser.NONE;
   this.turning = Phaser.NONE;
+
+  this.playingSound = false;
 };
 
 Player.prototype.create = function () {
-  this.sprite = this.game.add.sprite((18 * 16) + 8, (17 * 16) + 8, 'pacman', 1);
+  this.sprite = this.game.add.sprite((22 * 16) + 8, (14 * 16) + 8, 'pacman', 1);
   this.sprite.anchor.set(0.5);
   this.sprite.animations.add('munch', [1, 2, 1, 0], 13, true);
+  this.munchSound = this.game.add.audio('pacman-chomp');
 
   this.game.physics.arcade.enable(this.sprite);
   this.sprite.body.setSize(16, 16);
 
   this.sprite.play('munch');
 
-  this.move(Phaser.LEFT);
+  // this.move(Phaser.LEFT);
 };
 
 Player.prototype.move = function (direction) {
@@ -92,14 +95,21 @@ Player.prototype.turn = function () {
 
 Player.prototype.eatDot = function (pacman, dot) {
   dot.kill();
-  if (this.dots.total === 0) {
-    this.dots.callAll('revive');
+  if (!this.playingSound) {
+    this.munchSound.play();
+    this.playingSound = true;
+    setTimeout(function() {
+      this.playingSound = false;
+    }.bind(this), 600);
+  }
+  if (this.game.dots.total === 0) {
+    this.game.dots.callAll('revive');
   }
 };
 
 Player.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
-  this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot, null, this.game);
+  this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot.bind(this), null, this.game);
 
   // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.game.gameOver.bind(this.game));
 

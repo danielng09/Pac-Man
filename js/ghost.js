@@ -90,11 +90,6 @@ Ghost.prototype.update = function () {
     this.sprite.x = 5;
   }
 
-  if (this.startRandomMoves && this.canMoveAgain) {
-    this.randomMove();
-  }
-
-
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
@@ -108,6 +103,10 @@ Ghost.prototype.update = function () {
   if (this.turning !== Phaser.NONE) {
     this.turn();
   }
+
+  if (this.startRandomMoves && this.canMoveAgain) {
+    this.randomMove();
+  }
 };
 
 Ghost.prototype.startRandom = function () {
@@ -120,9 +119,9 @@ Ghost.prototype.randomMove = function () {
 
   for (var t = 1; t < 5; t++) {
     if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && this.opposites[t] !== this.current) {
-      if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
+      // if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
         valid_moves.push(this.directions[t]);
-      }
+      // }
     }
   }
 

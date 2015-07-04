@@ -120,30 +120,34 @@ Ghost.prototype.randomMove = function () {
 
   for (var t = 1; t < 5; t++) {
     if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && this.opposites[t] !== this.current) {
-      valid_moves.push(this.directions[t]);
+      if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
+        valid_moves.push(this.directions[t]);
+      }
     }
   }
 
-  var randTile = valid_moves[Math.round(Math.random() * (valid_moves.length -1))];
-  var xDiff = this.marker.x - randTile.x;
-  var yDiff = this.marker.y - randTile.y;
-  var randDir;
-  if (xDiff === 1) {
-    randDir = Phaser.LEFT;
-    this.sprite.play('moveLeft');
-  } else if (xDiff === -1) {
-    randDir = Phaser.RIGHT;
-    this.sprite.play('moveRight');
-  } else if (yDiff === 1) {
-    randDir = Phaser.UP;
-    this.sprite.play('moveUp');
-  } else if (yDiff === -1) {
-    randDir = Phaser.DOWN;
-    this.sprite.play('moveDown');
-  }
+  // if (valid_moves.length > 0) {
+    var randTile = valid_moves[Math.round(Math.random() * (valid_moves.length -1))];
+    var xDiff = this.marker.x - randTile.x;
+    var yDiff = this.marker.y - randTile.y;
+    var randDir;
+    if (xDiff === 1) {
+      randDir = Phaser.LEFT;
+      this.sprite.play('moveLeft');
+    } else if (xDiff === -1) {
+      randDir = Phaser.RIGHT;
+      this.sprite.play('moveRight');
+    } else if (yDiff === 1) {
+      randDir = Phaser.UP;
+      this.sprite.play('moveUp');
+    } else if (yDiff === -1) {
+      randDir = Phaser.DOWN;
+      this.sprite.play('moveDown');
+    }
 
-  setTimeout(function() {
-    this.canMoveAgain = true;
-  }.bind(this), 100);
-  this.move(randDir);
+    setTimeout(function() {
+      this.canMoveAgain = true;
+    }.bind(this), 100);
+    this.move(randDir);
+  // }
 };

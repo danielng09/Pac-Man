@@ -26,9 +26,15 @@ Board.prototype = {
     this.load.spritesheet('inky', 'assets/inky.png', 34, 34);
     this.load.spritesheet('clyde', 'assets/clyde.png', 34, 34);
     this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
+
+    this.load.audio('pacman-chomp', 'assets/sound/pacman_chomp.wav');
+    this.load.audio('pacman-beginning', 'assets/sound/pacman_beginning.wav');
   },
 
   create: function () {
+    this.beginSound = game.add.audio('pacman-beginning');
+    this.beginSound.play();
+
     this.map = this.add.tilemap('map');
     this.map.addTilesetImage('pacman-tiles', 'tiles');
 
@@ -50,22 +56,18 @@ Board.prototype = {
 
     blinky = new Ghost({ game: this, spriteName: "blinky" });
     blinky.create();
-    // this.ghosts.add(blinky);
 
     setTimeout(function () {
       pinky = new Ghost({ game: this, spriteName: "pinky" });
       pinky.create();
-      // this.ghosts.add(pinky);
     }.bind(this), 1000);
     setTimeout(function () {
       inky = new Ghost({ game: this, spriteName: "inky" });
       inky.create();
-      // this.ghosts.add(inky);
     }.bind(this), 2000);
     setTimeout(function () {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
-      // this.ghosts.add(clyde);
     }.bind(this), 3000);
   },
 

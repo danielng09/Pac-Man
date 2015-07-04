@@ -14,6 +14,7 @@ var Ghost = function(options) {
   this.current = Phaser.NONE;
   this.turning = Phaser.NONE;
 
+  this.exitedBarrier = false;
   this.startRandomMoves = false;
   this.canMoveAgain = true;
 };
@@ -33,6 +34,10 @@ Ghost.prototype.create = function () {
   this.sprite.play('moveUp');
 
   this.move(Phaser.UP);
+
+  setTimeout(function() {
+    this.exitedBarrier = true;
+  }.bind(this), 1000);
 };
 
 Ghost.prototype.move = function (direction) {
@@ -93,6 +98,9 @@ Ghost.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
   this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
   this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
+  if (this.exitedBarrier) {
+    this.game.physics.arcade.collide(this.sprite, this.game.barrier3.sprite);
+  }
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;

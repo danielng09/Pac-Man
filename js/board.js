@@ -53,26 +53,29 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
-    this.barrier = new Barrier({ game: this, marker_x: 5, marker_y: 14});
+    this.barrier = new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 });
     this.barrier.create();
 
-    this.barrier2 = new Barrier({ game: this, marker_x: 23, marker_y: 14});
+    this.barrier2 = new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 });
     this.barrier2.create();
+
+    this.barrier3 = new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 });
+    this.barrier3.create();
 
     blinky = pinky = inky = clyde = false;
 
     blinky = new Ghost({ game: this, spriteName: "blinky" });
     blinky.create();
 
-    setTimeout(function () {
+    setTimeout(function() {
       pinky = new Ghost({ game: this, spriteName: "pinky" });
       pinky.create();
     }.bind(this), 1000);
-    setTimeout(function () {
+    setTimeout(function() {
       inky = new Ghost({ game: this, spriteName: "inky" });
       inky.create();
     }.bind(this), 2000);
-    setTimeout(function () {
+    setTimeout(function() {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
     }.bind(this), 3000);

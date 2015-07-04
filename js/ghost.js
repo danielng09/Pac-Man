@@ -91,6 +91,8 @@ Ghost.prototype.update = function () {
   }
 
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
+  this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
+  this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
@@ -119,13 +121,12 @@ Ghost.prototype.randomMove = function () {
 
   for (var t = 1; t < 5; t++) {
     if (this.directions[t] !== null && this.directions[t].index === this.game.safetile && this.opposites[t] !== this.current) {
-      // if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
+      if (!(this.directions[t].y === 14 && (this.directions[t].x === 5 || this.directions[t].y === 22))) {
         valid_moves.push(this.directions[t]);
-      // }
+      }
     }
   }
 
-  // if (valid_moves.length > 0) {
     var randTile = valid_moves[Math.round(Math.random() * (valid_moves.length -1))];
     var xDiff = this.marker.x - randTile.x;
     var yDiff = this.marker.y - randTile.y;
@@ -148,5 +149,4 @@ Ghost.prototype.randomMove = function () {
       this.canMoveAgain = true;
     }.bind(this), 100);
     this.move(randDir);
-  // }
 };

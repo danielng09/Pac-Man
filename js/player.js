@@ -107,6 +107,9 @@ Player.prototype.eatDot = function (pacman, dot) {
 
 Player.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
+  // this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
+  // this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
+
   this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot.bind(this), null, this.game);
 
   // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.game.gameOver.bind(this.game));
@@ -134,4 +137,8 @@ Player.prototype.update = function () {
 
 Player.prototype.stop = function () {
   this.sprite.animations.stop();
+};
+
+Player.prototype.test = function () {
+  debugger;
 };

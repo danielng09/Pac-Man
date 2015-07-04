@@ -21,6 +21,7 @@ Board.prototype = {
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
     this.load.spritesheet('pacman', 'assets/pacman-3.png', 32, 32);
+    this.load.spritesheet('barriers', 'assets/barriers.png', 32, 32);
     this.load.spritesheet('blinky', 'assets/blinky.png', 34, 34);
     this.load.spritesheet('pinky', 'assets/pinky.png', 34, 34);
     this.load.spritesheet('inky', 'assets/inky.png', 34, 34);
@@ -38,6 +39,7 @@ Board.prototype = {
     this.map = this.add.tilemap('map');
     this.map.addTilesetImage('pacman-tiles', 'tiles');
 
+
     this.layer = this.map.createLayer('Pacman');
     this.dots = this.add.physicsGroup();
     this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
@@ -51,7 +53,12 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
-    this.ghosts = game.add.group();
+    this.barrier = new Barrier({ game: this, marker_x: 5, marker_y: 14});
+    this.barrier.create();
+
+    this.barrier2 = new Barrier({ game: this, marker_x: 23, marker_y: 14});
+    this.barrier2.create();
+
     blinky = pinky = inky = clyde = false;
 
     blinky = new Ghost({ game: this, spriteName: "blinky" });

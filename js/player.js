@@ -107,12 +107,12 @@ Player.prototype.eatDot = function (pacman, dot) {
 
 Player.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
-  this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
-  this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
+  // this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
+  // this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
 
-  if (this.game.barrier3) {
-    this.game.physics.arcade.collide(this.sprite, this.game.barrier3.sprite);
-  }
+  this.game.physics.arcade.collide(this.sprite, this.game.barrier3.sprite);
+  // create ghost group
+  // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.loseGame.bind(this));
 
   this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot.bind(this), null, this.game);
 
@@ -143,6 +143,11 @@ Player.prototype.stop = function () {
   this.sprite.animations.stop();
 };
 
-Player.prototype.test = function () {
-  debugger;
+Player.prototype.loseGame = function () {
+  // play death animation
+  // play death sound
+
+  this.game.paused = true;
+
+  // user jquery to display Game Over
 };

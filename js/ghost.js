@@ -37,7 +37,7 @@ Ghost.prototype.create = function () {
 
   setTimeout(function() {
     this.exitedBarrier = true;
-  }.bind(this), 1000);
+  }.bind(this), 100);
 };
 
 Ghost.prototype.move = function (direction) {

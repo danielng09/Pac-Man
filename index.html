@@ -6,12 +6,12 @@
       </style>
         <title>Pac-Man</title>
         <meta charset="utf-8">
+        <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/phaser.js"></script>
         <script src="js/board.js"></script>
         <script src="js/player.js"></script>
         <script src="js/ghost.js"></script>
         <script src="js/barrier.js"></script>
-        <!-- <script src="js/game.js"></script> -->
         <link rel="stylesheet" type="text/css" href="css/pacman.css">
   </head>
   <body>
@@ -33,7 +33,16 @@
           </div>
       </div>
 
-      <div id='parent' style="width: 1800px; height: 1993px; margin-left: 38%;"></div>
+      <div id='parent'></div>
     </div>
+
+    <script>
+      $("#play").click(function() {
+        $("body").append($("<script />", {
+          src: "js/game.js"
+        }))
+        $('.menu').remove();
+      });
+    </script>
   </body>
 </html>

@@ -16,7 +16,7 @@ var Player = function(options) {
 };
 
 Player.prototype.create = function () {
-  this.sprite = this.game.add.sprite((22 * 16) + 8, (14 * 16) + 8, 'pacman', 1);
+  this.sprite = this.game.add.sprite((14 * 16) + 8, (17 * 16) + 8, 'pacman', 1);
   this.sprite.anchor.set(0.5);
   this.sprite.animations.add('munch', [1, 2, 1, 0], 13, true);
   this.munchSound = this.game.add.audio('pacman-chomp');

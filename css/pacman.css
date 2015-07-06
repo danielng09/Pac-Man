@@ -3,3 +3,62 @@
   width: 1344px;
   height: 1488px;
 }
+
+.menu {
+  width: 1800px;
+  height: 1993px;
+  border: 3px blue solid;
+  margin: 100px auto;
+  background-color: black;
+  position: relative;
+}
+
+#title {
+  font-family: namco;
+  color: white;
+  font-size: 150px;
+  text-align: center;
+}
+
+#play {
+  font-family: namco;
+  color: white;
+  font-size: 100px;
+  text-align: center;
+}
+
+#play:hover {
+  color: #0097cf;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.created {
+  font-family: namco;
+  color: white;
+  font-size: 50px;
+  text-align: center;
+}
+
+#linkedin {
+  text-decoration: none;
+  font-family: namco;
+  color: white;
+  font-size: 50px;
+  display: block;
+  text-align: center;
+}
+
+#linkedin:hover {
+  color: #0097cf;
+  cursor: pointer;
+  cursor: hand;
+}
+
+#start-img {
+  display: block;
+  margin: auto;
+  text-align: center;
+  height: 100px;
+  width: auto;
+}

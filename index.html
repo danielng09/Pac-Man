@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <meta name="description" content="Pacman" />
+      <style>
+        @font-face { font-family: "namco"; src: url('assets/fonts/namco.TTF'); }
+      </style>
         <title>Pac-Man</title>
         <meta charset="utf-8">
         <script src="js/phaser.js"></script>
@@ -9,10 +11,27 @@
         <script src="js/player.js"></script>
         <script src="js/ghost.js"></script>
         <script src="js/barrier.js"></script>
-        <script src="js/game.js"></script>
+        <!-- <script src="js/game.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="css/pacman.css">
   </head>
   <body>
-    <div class="container">
+
+    <div id="container">
+      <div class="menu">
+        <br><br>
+        <p id="title">pacman</p>
+        <br><br></br></br></br><br><br>
+
+        <img id="start-img" src="assets/menu-pic.png"></img>
+        <br><br><br><br><br><br><br>
+        <p id="play">play</p>
+        <br><br><br>
+        <p class="created">created by<p>
+          <div>
+            <a id="linkedin" href="https://www.linkedin.com/in/danielng09">daniel ng</a>
+          </div>
+      </div>
+
       <div id='parent' style="width: 1800px; height: 1993px; margin-left: 38%;"></div>
     </div>
   </body>

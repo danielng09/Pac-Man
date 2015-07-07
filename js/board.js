@@ -22,7 +22,7 @@ Board.prototype = {
   preload: function () {
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
-    this.load.spritesheet('pacman', 'assets/pacman-3.png', 32, 32);
+    this.load.spritesheet('pacman', 'assets/player.png', 32, 32);
     this.load.spritesheet('barriers', 'assets/barriers.png', 32, 32);
     this.load.spritesheet('blinky', 'assets/blinky.png', 34, 34);
     this.load.spritesheet('pinky', 'assets/pinky.png', 34, 34);
@@ -58,6 +58,7 @@ Board.prototype = {
     this.barriers.push(new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 }));
     this.barriers.push(new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 }));
     this.barriers.push(new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 }));
+
     this.barriers.forEach(function(barrier) {
       barrier.create();
     });

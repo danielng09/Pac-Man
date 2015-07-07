@@ -96,10 +96,10 @@ Ghost.prototype.update = function () {
   }
 
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.startRandom.bind(this));
-  this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
-  this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
+
+  this.game.physics.arcade.collide(this.sprite, this.game.barriers.slice(0,2));
   if (this.exitedBarrier) {
-    this.game.physics.arcade.collide(this.sprite, this.game.barrier3.sprite);
+    this.game.physics.arcade.collide(this.sprite, this.game.barriers[2]);
   }
 
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;

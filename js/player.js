@@ -16,7 +16,7 @@ var Player = function(options) {
 };
 
 Player.prototype.create = function () {
-  this.sprite = this.game.add.sprite((14 * 16) + 8, (17 * 16) + 8, 'pacman', 1);
+  this.sprite = this.game.add.sprite((14 * 16) + 8, (23 * 16) + 8, 'pacman', 1);
   this.sprite.anchor.set(0.5);
   this.sprite.animations.add('munch', [1, 2, 1, 0], 13, true);
   this.munchSound = this.game.add.audio('pacman-chomp');
@@ -107,10 +107,8 @@ Player.prototype.eatDot = function (pacman, dot) {
 
 Player.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
-  // this.game.physics.arcade.collide(this.sprite, this.game.barrier.sprite);
-  // this.game.physics.arcade.collide(this.sprite, this.game.barrier2.sprite);
 
-  this.game.physics.arcade.collide(this.sprite, this.game.barrier3.sprite);
+  this.game.physics.arcade.collide(this.sprite, this.game.barriers[2]);
   // create ghost group
   // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.loseGame.bind(this));
 

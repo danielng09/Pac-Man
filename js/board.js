@@ -4,6 +4,8 @@ var Board = function (game) {
   this.safetile = 14;
   this.teleportTile = 36;
   this.gridsize = 16;
+  this.barriers = [];
+  this.ghosts = [];
 };
 
 Board.prototype = {
@@ -53,14 +55,16 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
-    this.barrier = new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 });
-    this.barrier.create();
+    this.barriers.push(new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 }));
+    this.barriers.push(new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 }));
+    this.barriers.push(new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 }));
+    this.barriers.forEach(function(barrier) {
+      barrier.create();
+    });
 
-    this.barrier2 = new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 });
-    this.barrier2.create();
-
-    this.barrier3 = new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 });
-    this.barrier3.create();
+    this.barriers = this.barriers.map(function(barrier) {
+      return barrier.sprite;
+    });
 
     blinky = pinky = inky = clyde = false;
 

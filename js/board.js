@@ -4,7 +4,6 @@ var Board = function (game) {
   this.safetile = 14;
   this.teleportTile = 36;
   this.gridsize = 16;
-  this.barriers = [];
   this.ghosts = [];
 };
 
@@ -32,6 +31,7 @@ Board.prototype = {
 
     this.load.audio('pacman-chomp', 'assets/sound/pacman_chomp.wav');
     this.load.audio('pacman-beginning', 'assets/sound/pacman_beginning.wav');
+    this.load.audio('death', 'assets/sound/pacman_death.wav');
   },
 
   create: function () {
@@ -55,9 +55,9 @@ Board.prototype = {
     player = new Player({ game: this });
     player.create();
 
-    this.barriers.push(new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 }));
-    this.barriers.push(new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 }));
-    this.barriers.push(new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 }));
+    this.barriers = [new Barrier({ game: this, marker_x: 5, marker_y: 14, barrier_type: 0 }),
+                     new Barrier({ game: this, marker_x: 23, marker_y: 14, barrier_type: 0 }),
+                     new Barrier({ game: this, marker_x: 14, marker_y: 12.5, barrier_type: 1 })];
 
     this.barriers.forEach(function(barrier) {
       barrier.create();
@@ -91,6 +91,9 @@ Board.prototype = {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
       this.ghosts.push(clyde);
+      this.ghosts = this.ghosts.map(function(ghost) {
+        return ghost.sprite;
+      });
     }.bind(this), 7500);
 
   },

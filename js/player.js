@@ -20,7 +20,9 @@ Player.prototype.create = function () {
   this.sprite = this.game.add.sprite((14 * 16) + 8, (23 * 16) + 8, 'pacman', 1);
   this.sprite.anchor.set(0.5);
   this.sprite.animations.add('munch', [1, 2, 1, 0], 13, true);
+  this.sprite.animations.add('death', [0, 2], 13, true);
   this.munchSound = this.game.add.audio('pacman-chomp');
+  this.deathSound = this.game.add.audio('death');
 
   this.game.physics.arcade.enable(this.sprite);
   this.sprite.body.setSize(16, 16);
@@ -113,10 +115,8 @@ Player.prototype.eatDot = function (pacman, dot) {
 
 Player.prototype.update = function () {
   this.game.physics.arcade.collide(this.sprite, this.game.layer, this.stop.bind(this));
-
   this.game.physics.arcade.collide(this.sprite, this.game.barriers[2]);
-  // create ghost group
-  // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.loseGame.bind(this));
+  this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.loseGame.bind(this));
 
   this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot.bind(this), null, this.game);
 
@@ -149,7 +149,8 @@ Player.prototype.stop = function () {
 
 Player.prototype.loseGame = function () {
   // play death animation
-  // play death sound
+  this.deathSound.play();
+  this.sprite.body.enable = false;
 
   this.game.paused = true;
 

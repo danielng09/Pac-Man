@@ -69,21 +69,30 @@ Board.prototype = {
 
     blinky = pinky = inky = clyde = false;
 
-    blinky = new Ghost({ game: this, spriteName: "blinky" });
-    blinky.create();
+    setTimeout(function() {
+      blinky = new Ghost({ game: this, spriteName: "blinky" });
+      blinky.create();
+      this.ghosts.push(blinky);
+    }.bind(this), 4500);
 
     setTimeout(function() {
       pinky = new Ghost({ game: this, spriteName: "pinky" });
       pinky.create();
-    }.bind(this), 1000);
+      this.ghosts.push(pinky);
+    }.bind(this), 5500);
+
     setTimeout(function() {
       inky = new Ghost({ game: this, spriteName: "inky" });
       inky.create();
-    }.bind(this), 2000);
+      this.ghosts.push(inky);
+    }.bind(this), 6500);
+
     setTimeout(function() {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
-    }.bind(this), 3000);
+      this.ghosts.push(clyde);
+    }.bind(this), 7500);
+
   },
 
   checkKeys: function () {

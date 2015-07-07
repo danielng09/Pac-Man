@@ -13,6 +13,7 @@ var Player = function(options) {
   this.current = Phaser.NONE;
   this.turning = Phaser.NONE;
   this.playingSound = false;
+
 };
 
 Player.prototype.create = function () {
@@ -24,8 +25,13 @@ Player.prototype.create = function () {
   this.game.physics.arcade.enable(this.sprite);
   this.sprite.body.setSize(16, 16);
 
-  this.sprite.play('munch');
-  this.move(Phaser.LEFT);
+  this.sprite.body.enable = false;
+  setTimeout(function() {
+    this.sprite.body.enable = true;
+    this.sprite.play('munch');
+    this.move(Phaser.LEFT);
+  }.bind(this), 4500);
+
 };
 
 Player.prototype.move = function (direction) {
@@ -42,12 +48,12 @@ Player.prototype.move = function (direction) {
   this.sprite.scale.x = 1;
   this.sprite.angle = 0;
 
-  if (direction === Phaser.LEFT) {
+  if (direction === Phaser.RIGHT) {
     this.sprite.scale.x = -1;
   } else if (direction === Phaser.UP) {
-    this.sprite.angle = 270;
-  } else if (direction === Phaser.DOWN) {
     this.sprite.angle = 90;
+  } else if (direction === Phaser.DOWN) {
+    this.sprite.angle = 270;
   }
 
   this.sprite.play('munch');
@@ -132,7 +138,7 @@ Player.prototype.update = function () {
 
   this.game.checkKeys();
 
-  if (this.turning !== Phaser.NONE) {
+  if (this.turning !== Phaser.NONE && this.sprite.body.enable) {
     this.turn();
   }
 };

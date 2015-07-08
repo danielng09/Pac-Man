@@ -4,6 +4,8 @@
       <style>
         @font-face { font-family: "namco"; src: url('assets/fonts/namco.TTF'); }
       </style>
+        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
         <title>Pac-Man</title>
         <meta charset="utf-8">
         <script src="js/jquery-2.1.4.min.js"></script>
@@ -33,6 +35,14 @@
       </div>
 
       <div id='parent'></div>
+
+      <div class="game-over">
+        <p id="game-over">game over</p>
+        <br><br><br><br>
+        <a id="return" href="http://localhost:8080/">menu</a>
+      </div>
+
+      <div class="backdrop"></div>
     </div>
 
     <script>

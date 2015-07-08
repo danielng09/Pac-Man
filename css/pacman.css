@@ -2,6 +2,8 @@ body {
   background-color: #0c0c0c;
 }
 
+/*font-family: 'Open Sans', sans-serif;*/
+
 #parent {
   margin-left: 40%;
   width: 1344px;
@@ -76,4 +78,47 @@ body {
   width: 500px;
   height: 554px;
   margin: 100px auto;
+}
+
+.game-over {
+  position: relative;
+  top: -530px;
+  visibility: hidden;
+  text-decoration: none;
+  font-family: namco;
+  color: white;
+  font-size: 32px;
+  display: block;
+  text-align: center;
+  z-index: 100;
+}
+
+#return {
+  text-decoration: none;
+  font-family: namco;
+  color: white;
+  font-size: 26px;
+  display: block;
+  text-align: center;
+}
+
+#return:hover {
+  color: #0097cf;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.backdrop {
+  visibility: hidden;
+  position: fixed;
+  background-color: rgba(0,0,0,0.6);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 75;
+}
+
+.visible {
+  visibility: visible;
 }

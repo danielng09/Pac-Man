@@ -1,14 +1,15 @@
-var Board = function (game) {
+var Board = function(game) {
   this.map = null;
   this.layer = null;
   this.safetile = 14;
   this.teleportTile = 36;
   this.gridsize = 16;
   this.ghosts = [];
+  this.score = 0;
 };
 
 Board.prototype = {
-  init: function () {
+  init: function() {
     this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
@@ -18,7 +19,7 @@ Board.prototype = {
     this.physics.startSystem(Phaser.Physics.ARCADE);
   },
 
-  preload: function () {
+  preload: function() {
     this.load.image('dot', 'assets/dot.png');
     this.load.image('tiles', 'assets/pacman-tiles.png');
     this.load.spritesheet('pacman', 'assets/player.png', 32, 32);
@@ -34,7 +35,7 @@ Board.prototype = {
     this.load.audio('death', 'assets/sound/pacman_death.wav');
   },
 
-  create: function () {
+  create: function() {
     this.beginSound = game.add.audio('pacman-beginning');
     this.beginSound.play();
 
@@ -96,9 +97,11 @@ Board.prototype = {
       });
     }.bind(this), 7500);
 
+    var style = { font: "18px Droid Sans", fill: "#fff", align: "center" };
+    this.text = game.add.text(10, 500, "Score: " + this.score, style);
   },
 
-  checkKeys: function () {
+  checkKeys: function() {
     if (this.cursors.left.isDown && player.current !== Phaser.LEFT) {
       player.checkDirection(Phaser.LEFT);
     } else if (this.cursors.right.isDown && player.current !== Phaser.RIGHT) {
@@ -112,12 +115,16 @@ Board.prototype = {
     }
   },
 
-  update: function () {
+  update: function() {
     player.update();
     if (blinky) { blinky.update(); }
     if (pinky) { pinky.update(); }
     if (inky) { inky.update(); }
     if (clyde) { clyde.update(); }
   },
+
+  render: function() {
+
+  }
 
 };

@@ -101,6 +101,9 @@ Player.prototype.turn = function () {
 
 Player.prototype.eatDot = function (pacman, dot) {
   dot.kill();
+  this.game.score += 10;
+  this.game.text.setText("Score: " + this.game.score);
+
   if (!this.playingSound) {
     this.munchSound.play();
     this.playingSound = true;
@@ -129,7 +132,6 @@ Player.prototype.update = function () {
   } else if (this.sprite.x > 448) {
     this.sprite.x = this.sprite.x % 448;
   }
-  // this.sprite.x = this.sprite.x % 448;
 
   this.directions[1] = this.game.map.getTileLeft(this.game.layer.index, this.marker.x, this.marker.y);
   this.directions[2] = this.game.map.getTileRight(this.game.layer.index, this.marker.x, this.marker.y);
@@ -148,11 +150,11 @@ Player.prototype.stop = function () {
 };
 
 Player.prototype.loseGame = function () {
-  // play death animation
   this.deathSound.play();
   this.sprite.body.enable = false;
-
+  // play death animation
+  this.sprite.kill();
   this.game.paused = true;
-
-  // user jquery to display Game Over
+  $('.game-over').addClass('visible');
+  $('.backdrop').addClass('visible');
 };

@@ -122,9 +122,4 @@ Board.prototype = {
     if (inky) { inky.update(); }
     if (clyde) { clyde.update(); }
   },
-
-  render: function() {
-
-  }
-
 };

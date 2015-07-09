@@ -4,9 +4,9 @@
 
 A browser version of the iconic arcade game. Built with Phaser, a HTML5 game framework, and JavaScript.
 
-<img src="screenshots/menu_screen.png" width="40%">
-<img src="screenshots/playing_screen.png" width="40%">
-<img src="screenshots/over_screen.png" width="40%">
+<img src="screenshots/menu_screen.png" width="35%">
+<img src="screenshots/playing_screen.png" width="35%">
+<img src="screenshots/over_screen.png" width="35%">
 
 ## Feature Highlights
 

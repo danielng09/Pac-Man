@@ -31,14 +31,7 @@ body {
   cursor: hand;
 }
 
-.created {
-  font-family: namco;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-}
-
-#linkedin {
+.author {
   text-decoration: none;
   font-family: namco;
   color: white;
@@ -47,7 +40,7 @@ body {
   text-align: center;
 }
 
-#linkedin:hover {
+.author:hover {
   color: #0097cf;
   cursor: pointer;
   cursor: hand;

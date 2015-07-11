@@ -1,7 +1,7 @@
 var Player = function(options) {
   this.game = options.game;
 
-  this.speed = 150;
+  this.speed = 300;
   this.threshold = 5;
 
   this.marker = new Phaser.Point();
@@ -112,7 +112,8 @@ Player.prototype.eatDot = function (pacman, dot) {
     }.bind(this), 600);
   }
   if (this.game.dots.total === 0) {
-    this.game.dots.callAll('revive');
+    this.winGame().bind(this);
+    // this.game.dots.callAll('revive');
   }
 };
 
@@ -154,5 +155,15 @@ Player.prototype.loseGame = function () {
   this.sprite.kill();
   this.game.paused = true;
   $('.game-over').removeClass('hide');
+  $('.backdrop').removeClass('hide');
+};
+
+Player.prototype.winGame = function () {
+  this.sprite.body.enable = false;
+  this.game.ghosts.forEach(function(ghost) {
+    ghost.kill();
+  });
+  this.game.paused = true;
+  $('.win').removeClass('hide');
   $('.backdrop').removeClass('hide');
 };

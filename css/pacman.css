@@ -65,7 +65,7 @@ body {
   margin: 100px auto;
 }
 
-.game-over {
+.game-over, .win {
   position: relative;
   top: -530px;
   text-decoration: none;

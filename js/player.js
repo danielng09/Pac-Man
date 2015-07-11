@@ -123,8 +123,6 @@ Player.prototype.update = function () {
 
   this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.eatDot.bind(this), null, this.game);
 
-  // this.game.physics.arcade.collide(this.sprite, this.game.ghosts, this.game.gameOver.bind(this.game));
-
   this.marker.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.game.gridsize) / this.game.gridsize;
   this.marker.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.game.gridsize) / this.game.gridsize;
   if (this.sprite.x < 0) {

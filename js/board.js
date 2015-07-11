@@ -73,28 +73,25 @@ Board.prototype = {
     setTimeout(function() {
       blinky = new Ghost({ game: this, spriteName: "blinky" });
       blinky.create();
-      this.ghosts.push(blinky);
+      this.ghosts.push(blinky.sprite);
     }.bind(this), 4500);
 
     setTimeout(function() {
       pinky = new Ghost({ game: this, spriteName: "pinky" });
       pinky.create();
-      this.ghosts.push(pinky);
+      this.ghosts.push(pinky.sprite);
     }.bind(this), 5500);
 
     setTimeout(function() {
       inky = new Ghost({ game: this, spriteName: "inky" });
       inky.create();
-      this.ghosts.push(inky);
+      this.ghosts.push(inky.sprite);
     }.bind(this), 6500);
 
     setTimeout(function() {
       clyde = new Ghost({ game: this, spriteName: "clyde" });
       clyde.create();
-      this.ghosts.push(clyde);
-      this.ghosts = this.ghosts.map(function(ghost) {
-        return ghost.sprite;
-      });
+      this.ghosts.push(clyde.sprite);
     }.bind(this), 7500);
 
     var style = { font: "18px Droid Sans", fill: "#fff", align: "center" };

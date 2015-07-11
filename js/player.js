@@ -1,7 +1,7 @@
 var Player = function(options) {
   this.game = options.game;
 
-  this.speed = 300;
+  this.speed = 150;
   this.threshold = 5;
 
   this.marker = new Phaser.Point();

@@ -30,23 +30,24 @@
         <br><br><br>
         <p class="created">created by<p>
           <div>
-            <a id="linkedin" href="https://www.linkedin.com/in/danielng09">daniel ng</a>
+            <a id="linkedin" href="https://github.com/danielng09/Pac-Man">daniel ng</a>
           </div>
       </div>
 
-      <div id='parent'></div>
+      <div id='parent' class='hide'></div>
 
-      <div class="game-over">
+      <div class="game-over hide">
         <p id="game-over">game over</p>
         <br><br><br><br>
         <a id="return" href="http://danielng09.github.io/Pac-Man/">menu</a>
       </div>
 
-      <div class="backdrop"></div>
+      <div class="backdrop hide"></div>
     </div>
 
     <script>
       $("#play").click(function() {
+        $('#parent').removeClass('hide');
         $("body").append($("<script />", {
           src: "js/game.js"
         }))

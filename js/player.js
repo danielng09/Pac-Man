@@ -155,6 +155,6 @@ Player.prototype.loseGame = function () {
   // play death animation
   this.sprite.kill();
   this.game.paused = true;
-  $('.game-over').addClass('visible');
-  $('.backdrop').addClass('visible');
+  $('.game-over').removeClass('hide');
+  $('.backdrop').removeClass('hide');
 };
